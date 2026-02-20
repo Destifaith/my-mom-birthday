@@ -9,13 +9,14 @@
     <style>
         :root {
             --primary-pink: #ff8fab;
-            --soft-gold: #d4af37;
+            --deep-rose: #fb6f92;
+            --soft-cream: #fff5f6;
         }
 
         body {
             margin: 0;
             padding: 0;
-            background: #fffafa; 
+            background: var(--soft-cream); 
             font-family: 'Poppins', sans-serif;
             display: flex;
             flex-direction: column;
@@ -23,19 +24,19 @@
             overflow-x: hidden;
         }
 
-        /* Flower Petal Styling */
+        /* Enhanced Flower Petal Styling */
         .petal {
             position: fixed;
-            background-color: #ffc2d1;
-            border-radius: 150% 0 150% 0;
-            animation: drift 5s infinite linear;
             z-index: 999;
             pointer-events: none;
+            animation: drift 7s infinite linear;
         }
 
         @keyframes drift {
-            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
         }
 
         /* Line-by-Line Animation */
@@ -57,48 +58,54 @@
             align-items: center;
             text-align: center;
             padding: 40px 20px;
+            position: relative;
         }
 
         h1 {
             font-family: 'Dancing Script', cursive;
-            font-size: 4rem;
-            color: var(--primary-pink);
+            font-size: 4.5rem;
+            color: var(--deep-rose);
             margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.05);
         }
 
         .message-box {
             max-width: 650px;
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             line-height: 2;
-            color: #555;
+            color: #4a4a4a;
+            z-index: 10;
         }
 
-        /* Specific Delays for each line */
+        /* Reading Delays */
         .line-1 { animation-delay: 1.5s; }
-        .line-2 { animation-delay: 4s; }
-        .line-3 { animation-delay: 8s; }
-        .line-4 { animation-delay: 12s; }
-        .line-5 { animation-delay: 15s; }
-        .line-6 { animation-delay: 18s; }
+        .line-2 { animation-delay: 5s; }
+        .line-3 { animation-delay: 10s; }
+        .line-4 { animation-delay: 15s; }
+        .line-5 { animation-delay: 20s; }
+        .line-6 { animation-delay: 24s; }
 
         .photo-gallery {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            padding: 50px 20px;
-            animation-delay: 20s; /* Appears last */
+            gap: 25px;
+            padding: 60px 20px;
+            animation-delay: 27s;
         }
 
         .photo-card {
             width: 300px;
             height: 400px;
             background: #fff;
-            border: 10px solid white;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-            border-radius: 5px;
+            border: 12px solid white;
+            box-shadow: 0 15px 35px rgba(251, 111, 146, 0.2);
+            border-radius: 2px;
             object-fit: cover;
+            transition: transform 0.3s ease;
         }
+        
+        .photo-card:hover { transform: scale(1.05) rotate(2deg); }
 
     </style>
 </head>
@@ -118,37 +125,61 @@
 
             <p class="reveal-text line-5">On your birthday, I pray you feel even a fraction of the joy and love you have poured into my life every single day.</p>
 
-            <p class="reveal-text line-6" style="color: var(--primary-pink); font-weight: bold; font-size: 1.5rem;">You are my world, Mum. Happy Birthday ❤️</p>
+            <p class="reveal-text line-6" style="color: var(--deep-rose); font-weight: bold; font-size: 1.6rem;">You are my world, Mum. Happy Birthday ❤️</p>
         </div>
     </div>
 
-    <!-- <div id="gallery" class="photo-gallery reveal-text">
-        <img src="YOUR_IMAGE_URL_1" class="photo-card" alt="Mum 1">
-        <img src="YOUR_IMAGE_URL_2" class="photo-card" alt="Mum 2">
-        <img src="YOUR_IMAGE_URL_3" class="photo-card" alt="Mum 3">
-    </div> -->
+    <div id="gallery" class="photo-gallery reveal-text">
+        <img src="mom.jpg" class="photo-card" alt="Mum 1">
+                <img src="my-mom-2.png" class="photo-card" alt="Mum 3">
+
+        <img src="my-mom-1.png" class="photo-card" alt="Mum 2">
+    </div>
 
     <script>
         function createPetals() {
-            const petalCount = 15; // Fewer petals per burst to keep it elegant
+            // Increased petal count for a richer effect
+            const petalCount = 20; 
+            const colors = ['#ff8fab', '#ffc2d1', '#fb6f92', '#ffccd5', '#ffe5ec'];
+            
             for (let i = 0; i < petalCount; i++) {
                 const petal = document.createElement('div');
                 petal.classList.add('petal');
-                const size = Math.random() * 15 + 10 + 'px';
+                
+                const size = Math.random() * 20 + 10 + 'px';
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                
                 petal.style.width = size;
                 petal.style.height = size;
+                petal.style.backgroundColor = color;
                 petal.style.left = Math.random() * 100 + 'vw';
-                petal.style.animationDuration = Math.random() * 3 + 5 + 's';
-                petal.style.opacity = Math.random();
-                petal.style.backgroundColor = ['#ff8fab', '#ffc2d1', '#fb6f92'][Math.floor(Math.random() * 3)];
+                petal.style.animationDuration = Math.random() * 4 + 6 + 's';
+                petal.style.animationDelay = Math.random() * 2 + 's';
+                
+                // Randomly choose between a leaf shape and a circle (rose petal)
+                if (Math.random() > 0.5) {
+                    petal.style.borderRadius = '150% 0 150% 0';
+                } else {
+                    petal.style.borderRadius = '50%';
+                }
+
+                // Add a soft blur to some petals for a "dreamy" look
+                if (Math.random() > 0.8) {
+                    petal.style.filter = 'blur(2px)';
+                }
+                
                 document.body.appendChild(petal);
-                setTimeout(() => { petal.remove(); }, 6000);
+                setTimeout(() => { petal.remove(); }, 10000);
             }
         }
 
         window.onload = function() {
-            createPetals();
-            setInterval(createPetals, 2500);
+            // Burst many petals at the start
+            for(let i=0; i<3; i++) {
+                setTimeout(createPetals, i * 500);
+            }
+            // Keep the flowers coming
+            setInterval(createPetals, 1500); 
         };
     </script>
 </body>
