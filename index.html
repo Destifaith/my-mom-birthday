@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Mum</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-pink: #ff8fab;
+            --soft-gold: #d4af37;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: #fffafa; 
+            font-family: 'Poppins', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+        }
+
+        /* Flower Petal Styling */
+        .petal {
+            position: fixed;
+            background-color: #ffc2d1;
+            border-radius: 150% 0 150% 0;
+            animation: drift 5s infinite linear;
+            z-index: 999;
+            pointer-events: none;
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(-10vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+        }
+
+        /* Line-by-Line Animation */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .header-section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            color: var(--primary-pink);
+            margin-bottom: 20px;
+        }
+
+        .message-box {
+            max-width: 650px;
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #555;
+        }
+
+        /* Specific Delays for each line */
+        .line-1 { animation-delay: 1.5s; }
+        .line-2 { animation-delay: 4s; }
+        .line-3 { animation-delay: 8s; }
+        .line-4 { animation-delay: 12s; }
+        .line-5 { animation-delay: 15s; }
+        .line-6 { animation-delay: 18s; }
+
+        .photo-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 50px 20px;
+            animation-delay: 20s; /* Appears last */
+        }
+
+        .photo-card {
+            width: 300px;
+            height: 400px;
+            background: #fff;
+            border: 10px solid white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="header-section">
+        <h1 class="reveal-text">Happy Birthday, Mum</h1>
+        
+        <div class="message-box">
+            <p class="reveal-text line-1">To the heart of our home…</p>
+
+            <p class="reveal-text line-2">From my very first breath until this very moment, your love has been the steady light guiding my path. Through every season — the quiet struggles, the small victories, and the big dreams — you have been there, holding everything together with strength and grace.</p>
+
+            <p class="reveal-text line-3">Today is not just about counting the years. It is about honoring the sacrifices you made when no one was watching, the prayers you whispered on my behalf, the nights you stayed awake, and the times you chose my happiness over your own comfort.</p>
+
+            <p class="reveal-text line-4">You taught me what unconditional love truly means. You are my safe place, my greatest supporter, my first teacher, and my forever hero.</p>
+
+            <p class="reveal-text line-5">On your birthday, I pray you feel even a fraction of the joy and love you have poured into my life every single day.</p>
+
+            <p class="reveal-text line-6" style="color: var(--primary-pink); font-weight: bold; font-size: 1.5rem;">You are my world, Mum. Happy Birthday ❤️</p>
+        </div>
+    </div>
+
+    <!-- <div id="gallery" class="photo-gallery reveal-text">
+        <img src="YOUR_IMAGE_URL_1" class="photo-card" alt="Mum 1">
+        <img src="YOUR_IMAGE_URL_2" class="photo-card" alt="Mum 2">
+        <img src="YOUR_IMAGE_URL_3" class="photo-card" alt="Mum 3">
+    </div> -->
+
+    <script>
+        function createPetals() {
+            const petalCount = 15; // Fewer petals per burst to keep it elegant
+            for (let i = 0; i < petalCount; i++) {
+                const petal = document.createElement('div');
+                petal.classList.add('petal');
+                const size = Math.random() * 15 + 10 + 'px';
+                petal.style.width = size;
+                petal.style.height = size;
+                petal.style.left = Math.random() * 100 + 'vw';
+                petal.style.animationDuration = Math.random() * 3 + 5 + 's';
+                petal.style.opacity = Math.random();
+                petal.style.backgroundColor = ['#ff8fab', '#ffc2d1', '#fb6f92'][Math.floor(Math.random() * 3)];
+                document.body.appendChild(petal);
+                setTimeout(() => { petal.remove(); }, 6000);
+            }
+        }
+
+        window.onload = function() {
+            createPetals();
+            setInterval(createPetals, 2500);
+        };
+    </script>
+</body>
+</html>
