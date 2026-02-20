@@ -24,35 +24,70 @@
             overflow-x: hidden;
         }
 
-        /* Enhanced Flower Petal Styling */
-        .petal {
+        /* --- Intro Splash Screen --- */
+        #birthday-popup {
             position: fixed;
-            z-index: 999;
-            pointer-events: none;
-            animation: drift 7s infinite linear;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--soft-cream);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 1.2s ease, visibility 1.2s;
+            cursor: pointer;
         }
 
-        @keyframes drift {
-            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
+        .popup-content {
+            text-align: center;
+            animation: scaleIn 1s ease-out;
         }
 
-        /* Line-by-Line Animation */
-        .reveal-text {
-            opacity: 0;
-            transform: translateY(20px);
-            animation: fadeInUp 1.5s ease forwards;
+        .photo-frame-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 25px;
         }
 
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
+        .photo-frame {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 8px solid white;
+            box-shadow: 0 10px 30px rgba(251, 111, 146, 0.3);
+            object-fit: cover;
+            z-index: 2;
+            position: relative;
         }
 
+        /* Birthday Symbols surrounding the photo */
+        .symbol {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 3s infinite ease-in-out;
+        }
+        .s1 { top: -10px; left: -10px; animation-delay: 0s; }
+        .s2 { top: -10px; right: -10px; animation-delay: 0.5s; }
+        .s3 { bottom: -10px; left: -10px; animation-delay: 1s; }
+        .s4 { bottom: -10px; right: -10px; animation-delay: 1.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        @keyframes scaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        /* --- Main Content Layout --- */
         .header-section {
             min-height: 100vh;
-            display: flex;
+            display: none; /* Hidden until click */
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -77,21 +112,54 @@
             z-index: 10;
         }
 
-        /* Reading Delays */
-        .line-1 { animation-delay: 1.5s; }
-        .line-2 { animation-delay: 5s; }
-        .line-3 { animation-delay: 10s; }
-        .line-4 { animation-delay: 15s; }
-        .line-5 { animation-delay: 20s; }
-        .line-6 { animation-delay: 24s; }
+        /* --- Flower Petals --- */
+        .petal {
+            position: fixed;
+            z-index: 999;
+            pointer-events: none;
+            animation: drift 7s infinite linear;
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* --- Reveal Animations --- */
+        .reveal-text {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* These classes are added via JS after clicking the popup */
+        .animate-now {
+            animation: fadeInUp 1.5s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .line-1 { animation-delay: 0.5s; }
+        .line-2 { animation-delay: 3s; }
+        .line-3 { animation-delay: 8s; }
+        .line-4 { animation-delay: 13s; }
+        .line-5 { animation-delay: 18s; }
+        .line-6 { animation-delay: 22s; }
 
         .photo-gallery {
-            display: flex;
+            display: none; /* Hidden until click */
             flex-wrap: wrap;
             justify-content: center;
             gap: 25px;
             padding: 60px 20px;
-            animation-delay: 27s;
+        }
+
+        .gallery-animate {
+            animation: fadeInUp 1.5s ease forwards;
+            animation-delay: 25s;
         }
 
         .photo-card {
@@ -111,35 +179,44 @@
 </head>
 <body>
 
+    <div id="birthday-popup">
+        <div class="popup-content">
+            <div class="photo-frame-container">
+                <span class="symbol s1">🎈</span>
+                <span class="symbol s2">✨</span>
+                <span class="symbol s3">🌸</span>
+                <span class="symbol s4">🎂</span>
+                <img src="mom.jpg" class="photo-frame" alt="Happy Birthday Mum">
+            </div>
+            <h1 style="font-size: 3.5rem; margin: 0;">Happy Birthday, Mum!</h1>
+            <p style="color: var(--deep-rose); font-weight: bold; letter-spacing: 1px; margin-top: 10px;">
+                CLICK TO OPEN YOUR MESSAGE
+            </p>
+        </div>
+    </div>
+
     <div class="header-section">
         <h1 class="reveal-text">Happy Birthday, Mum</h1>
         
         <div class="message-box">
             <p class="reveal-text line-1">To the heart of our home…</p>
-
             <p class="reveal-text line-2">From my very first breath until this very moment, your love has been the steady light guiding my path. Through every season — the quiet struggles, the small victories, and the big dreams — you have been there, holding everything together with strength and grace.</p>
-
             <p class="reveal-text line-3">Today is not just about counting the years. It is about honoring the sacrifices you made when no one was watching, the prayers you whispered on my behalf, the nights you stayed awake, and the times you chose my happiness over your own comfort.</p>
-
             <p class="reveal-text line-4">You taught me what unconditional love truly means. You are my safe place, my greatest supporter, my first teacher, and my forever hero.</p>
-
             <p class="reveal-text line-5">On your birthday, I pray you feel even a fraction of the joy and love you have poured into my life every single day.</p>
-
             <p class="reveal-text line-6" style="color: var(--deep-rose); font-weight: bold; font-size: 1.6rem;">You are my world, Mum. Happy Birthday ❤️</p>
         </div>
     </div>
 
     <div id="gallery" class="photo-gallery reveal-text">
         <img src="mom.jpg" class="photo-card" alt="Mum 1">
-                <img src="my-mom-2.png" class="photo-card" alt="Mum 3">
-
+        <img src="my-mom-2.png" class="photo-card" alt="Mum 3">
         <img src="my-mom-1.png" class="photo-card" alt="Mum 2">
     </div>
 
     <script>
         function createPetals() {
-            // Increased petal count for a richer effect
-            const petalCount = 20; 
+            const petalCount = 15; 
             const colors = ['#ff8fab', '#ffc2d1', '#fb6f92', '#ffccd5', '#ffe5ec'];
             
             for (let i = 0; i < petalCount; i++) {
@@ -154,16 +231,13 @@
                 petal.style.backgroundColor = color;
                 petal.style.left = Math.random() * 100 + 'vw';
                 petal.style.animationDuration = Math.random() * 4 + 6 + 's';
-                petal.style.animationDelay = Math.random() * 2 + 's';
                 
-                // Randomly choose between a leaf shape and a circle (rose petal)
                 if (Math.random() > 0.5) {
                     petal.style.borderRadius = '150% 0 150% 0';
                 } else {
                     petal.style.borderRadius = '50%';
                 }
 
-                // Add a soft blur to some petals for a "dreamy" look
                 if (Math.random() > 0.8) {
                     petal.style.filter = 'blur(2px)';
                 }
@@ -174,12 +248,36 @@
         }
 
         window.onload = function() {
-            // Burst many petals at the start
-            for(let i=0; i<3; i++) {
-                setTimeout(createPetals, i * 500);
-            }
-            // Keep the flowers coming
-            setInterval(createPetals, 1500); 
+            // Keep subtle petals falling even on the splash screen
+            setInterval(createPetals, 2000);
+
+            const popup = document.getElementById('birthday-popup');
+            const header = document.querySelector('.header-section');
+            const gallery = document.getElementById('gallery');
+            const textLines = document.querySelectorAll('.reveal-text');
+
+            popup.onclick = function() {
+                // 1. Hide the popup
+                popup.style.opacity = '0';
+                popup.style.visibility = 'hidden';
+
+                // 2. Show the main sections
+                header.style.display = 'flex';
+                gallery.style.display = 'flex';
+
+                // 3. Trigger the line-by-line animations
+                textLines.forEach(line => {
+                    line.classList.add('animate-now');
+                });
+                
+                // 4. Trigger the gallery specific animation
+                gallery.classList.add('gallery-animate');
+
+                // 5. Initial burst of petals for celebration
+                for(let i=0; i<4; i++) {
+                    setTimeout(createPetals, i * 400);
+                }
+            };
         };
     </script>
 </body>
